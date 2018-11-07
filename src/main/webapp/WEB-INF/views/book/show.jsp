@@ -78,7 +78,7 @@
 			      在庫数
 			    </th>
 			    <td>
-			    	<form:errors path="bookForm.*"/>
+			    	<form:errors path="bookForm.*" cssStyle="color:red"/>
 					<form action="/book/update" method="post">
 						<input type="text" name="stock"  value="<c:out value="${book.stock}"/>">
 						<input type="hidden" name="id" value="<c:out value="${book.id}"/>">

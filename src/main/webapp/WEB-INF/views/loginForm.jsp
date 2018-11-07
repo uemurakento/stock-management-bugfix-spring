@@ -5,7 +5,6 @@
 	<div class="span8">
 		<img src="img/logo.gif" >
 		<div class="row">
-		<form:errors path="loginForm.*" />
 		<form:form modelAttribute="loginForm" action="${pageContext.request.contextPath}/login">
 			<table class="table table-striped">
 			  <tr>
@@ -14,7 +13,7 @@
 			    </th>
 			    <td>
 			    	<form:input path="mailAddress" placeholder="Email"/>
-			    	<form:errors path="mailAddress" />
+			    	<form:errors path="mailAddress" cssStyle="color:red"/>
 			    </td>
 			  </tr>
 			  <tr>
@@ -23,7 +22,7 @@
 			    </th>
 			    <td>
 			    	<form:password path="password" placeholder="Password"/>
-			    	<form:errors path="password" />
+			    	<form:errors path="password"  cssStyle="color:red"/>
 			    </td>
 			  </tr>
 			  <tr>
