@@ -1,5 +1,7 @@
 package jp.co.rakus.stockmanagement.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,13 +59,13 @@ public class LoginController {
 		}
 		String mailAddress = form.getMailAddress();
 		String password = form.getPassword();
-		Member member = memberService.findOneByMailAddressAndPassword(mailAddress, password);
-		if (member == null) {
+		List<Member> members = memberService.findOneByMailAddressAndPassword(mailAddress, password);
+		if (members.isEmpty()) {
 			ObjectError error = new ObjectError("loginerror", "メールアドレスまたはパスワードが違います。");
             result.addError(error);
 			return index();
 		}
-		model.addAttribute("member", member);
+		model.addAttribute("member", members.get(0));
 		return "redirect:/book/list";
 	}
 }

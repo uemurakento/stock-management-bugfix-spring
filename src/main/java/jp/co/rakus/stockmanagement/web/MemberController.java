@@ -63,12 +63,12 @@ public class MemberController {
 		}
 		//パスワードと確認用パスワードが一致しないときのエラー処理
 		if(!form.getPassword().equals(form.getPasswordConfirmation())) {
-			model.addAttribute("passwordError","パスワードが確認用パスワードと一致しません");
+			result.rejectValue("password", null, "パスワードが確認用パスワードと一致しません");
 			return form();
 		}
 		//メールアドレスが登録済みの時のエラー処理
-		if(memberService.findOneByMailAddress(form.getMailAddress()) != null) {
-			model.addAttribute("mailAddressError","そのメールアドレスは既に登録されています");
+		if(!memberService.findOneByMailAddress(form.getMailAddress()).isEmpty()) {
+			result.rejectValue("mailAddress",null,"そのメールアドレスは既に登録されています");
 			return form();
 		}
 		

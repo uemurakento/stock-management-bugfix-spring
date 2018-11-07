@@ -23,7 +23,6 @@
 			    <td>
 			    	<form:errors path="mailAddress" cssStyle="color:red" element="div"/>
 			    	<form:input path="mailAddress" placeholder="Email"/>
-					<p style="color:red"><c:out value="${mailAddressError}"/></p>
 			    </td>
 			  </tr>
 			  <tr>
@@ -33,7 +32,6 @@
 			    <td>
 			    	<form:errors path="password" cssStyle="color:red" element="div"/>
 			    	<form:password path="password" placeholder="Password"/>
-					<p style="color:red"><c:out value="${passwordError}"/></p>
 			    </td>
 			  </tr>
 			  <tr>

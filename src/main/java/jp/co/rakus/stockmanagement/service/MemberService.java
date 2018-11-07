@@ -1,10 +1,12 @@
 package jp.co.rakus.stockmanagement.service;
 
-import jp.co.rakus.stockmanagement.domain.Member;
-import jp.co.rakus.stockmanagement.repository.MemberRepository;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jp.co.rakus.stockmanagement.domain.Member;
+import jp.co.rakus.stockmanagement.repository.MemberRepository;
 
 /**
  * メンバー関連サービスクラス.
@@ -25,11 +27,11 @@ public class MemberService {
 //		return memberRepository.findOne(id);
 //	}
 	
-	public Member findOneByMailAddressAndPassword(String mailAddress, String password){
+	public List<Member> findOneByMailAddressAndPassword(String mailAddress, String password){
 		return memberRepository.findByMailAddressAndPassword(mailAddress, password);
 	}
 	
-	public Member findOneByMailAddress(String mailAddress){
+	public List<Member> findOneByMailAddress(String mailAddress){
 		return memberRepository.findByMailAddress(mailAddress);
 	}	
 	
