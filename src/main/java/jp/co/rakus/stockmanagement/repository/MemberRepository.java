@@ -53,6 +53,21 @@ public class MemberRepository {
 			return null;
 		}
 	}
+	
+	public Member findByMailAddress(String mailAddress) {
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mail_address", mailAddress);
+		Member member = null;
+		try{
+			member = jdbcTemplate.queryForObject(
+					"SELECT id,name,mail_address,password FROM members WHERE mail_address=:mail_address;",
+					param, 
+					MEMBER_ROW_MAPPER);
+			return member;
+		} catch(DataAccessException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	/**
 	 * メンバー情報を保存　または　更新する.

@@ -29,6 +29,10 @@ public class MemberService {
 		return memberRepository.findByMailAddressAndPassword(mailAddress, password);
 	}
 	
+	public Member findOneByMailAddress(String mailAddress){
+		return memberRepository.findByMailAddress(mailAddress);
+	}	
+	
 	public Member save(Member member){
 		return memberRepository.save(member);
 	}

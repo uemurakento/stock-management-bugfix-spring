@@ -60,6 +60,10 @@ public class MemberController {
 		if(result.hasErrors()) {
 			return form();
 		}
+		if(memberService.findOneByMailAddress(form.getMailAddress()) != null) {
+			model.addAttribute("mailAddressError","そのメールアドレスは既に登録されています");
+			return form();
+		}
 		
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
