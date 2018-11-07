@@ -56,10 +56,17 @@ public class MemberController {
 			@Validated MemberForm form, 
 			BindingResult result,
 			Model model) {
+		
 		//入力値エラー時処理
 		if(result.hasErrors()) {
 			return form();
 		}
+		//パスワードと確認用パスワードが一致しないときのエラー処理
+		if(!form.getPassword().equals(form.getPasswordConfirmation())) {
+			model.addAttribute("passwordError","パスワードが確認用パスワードと一致しません");
+			return form();
+		}
+		//メールアドレスが登録済みの時のエラー処理
 		if(memberService.findOneByMailAddress(form.getMailAddress()) != null) {
 			model.addAttribute("mailAddressError","そのメールアドレスは既に登録されています");
 			return form();

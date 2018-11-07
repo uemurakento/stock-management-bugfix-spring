@@ -33,7 +33,17 @@
 			    <td>
 			    	<form:errors path="password" cssStyle="color:red" element="div"/>
 			    	<form:password path="password" placeholder="Password"/>
+					<p style="color:red"><c:out value="${passwordError}"/></p>
 			    </td>
+			  </tr>
+			  <tr>
+			  	<th>
+			  		確認用パスワード
+			  	</th>
+			  	<td>
+			    	<form:errors path="passwordConfirmation" cssStyle="color:red" element="div"/>
+			    	<form:password path="passwordConfirmation" placeholder="Password"/>
+			  	</td>
 			  </tr>
 			  <tr>
 			  	<td></td>
