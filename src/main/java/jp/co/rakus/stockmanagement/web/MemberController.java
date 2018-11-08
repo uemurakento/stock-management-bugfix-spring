@@ -74,6 +74,7 @@ public class MemberController {
 		
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
+		member = memberService.encryptionPassword(member);
 		memberService.save(member);
 		return "redirect:/";
 	}
