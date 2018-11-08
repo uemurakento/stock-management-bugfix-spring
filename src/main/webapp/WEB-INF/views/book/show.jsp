@@ -87,6 +87,7 @@
 			    </td>
 			  </tr>
 			</table>
+			<form action="${pageContext.request.contextPath}/book/list"><input type="submit" value="戻る"></form>
 		</div>
 	</div>
 </div>
