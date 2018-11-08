@@ -5,6 +5,7 @@
 	<div class="span8">
 		<img src="img/logo.gif" >
 		<div class="row">
+		<form:errors path="loginForm.*" cssStyle="color:red"/>
 		<form:form modelAttribute="loginForm" action="${pageContext.request.contextPath}/login">
 			<table class="table table-striped">
 			  <tr>
