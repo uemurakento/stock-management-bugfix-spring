@@ -67,7 +67,7 @@ public class MemberController {
 			return form();
 		}
 		//メールアドレスが登録済みの時のエラー処理
-		if(!memberService.findOneByMailAddress(form.getMailAddress()).isEmpty()) {
+		if(memberService.findOneByMailAddress(form.getMailAddress()) != null) {
 			result.rejectValue("mailAddress",null,"そのメールアドレスは既に登録されています");
 			return form();
 		}

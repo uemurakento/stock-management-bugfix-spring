@@ -1,7 +1,5 @@
 package jp.co.rakus.stockmanagement.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,14 +61,14 @@ public class LoginController {
 		}
 		String mailAddress = form.getMailAddress();
 		String password = form.getPassword();
-		List<Member> members = memberService.findOneByMailAddressAndPassword(mailAddress, password);
-		if (members.isEmpty()) {
+		Member member = memberService.findOneByMailAddressAndPassword(mailAddress, password);
+		if (member == null) {
 			ObjectError error = new ObjectError("loginerror", "メールアドレスまたはパスワードが違います。");
             result.addError(error);
 			return index();
 		}
-		session.setAttribute("member", members.get(0));
-		model.addAttribute("member", members.get(0));
+		session.setAttribute("member", member);
+		model.addAttribute("member", member);
 		return "redirect:/book/list";
 	}
 }

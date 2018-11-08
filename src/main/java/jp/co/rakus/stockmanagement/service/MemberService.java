@@ -1,7 +1,6 @@
 package jp.co.rakus.stockmanagement.service;
 
 import java.security.MessageDigest;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class MemberService {
 
 	@Autowired
 	MemberRepository memberRepository;
-	
+		
 //	public List<Member> findAll(){
 //		return memberRepository.findAll();
 //	}
@@ -28,12 +27,12 @@ public class MemberService {
 //		return memberRepository.findOne(id);
 //	}
 	
-	public List<Member> findOneByMailAddressAndPassword(String mailAddress, String password){
+	public Member findOneByMailAddressAndPassword(String mailAddress, String password){
 		password = encryption(password);
 		return memberRepository.findByMailAddressAndPassword(mailAddress, password);
 	}
 	
-	public List<Member> findOneByMailAddress(String mailAddress){
+	public Member findOneByMailAddress(String mailAddress){
 		return memberRepository.findByMailAddress(mailAddress);
 	}	
 	

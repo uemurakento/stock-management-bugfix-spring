@@ -42,15 +42,19 @@ public class MemberRepository {
 	 *            メールアドレス
 	 * @param password
 	 *            パスワード
-	 * @return メンバー情報.メンバーが存在しない場合は空のリスト.
+	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
-	public List<Member> findByMailAddressAndPassword(String mailAddress, String password) {
+	public Member findByMailAddressAndPassword(String mailAddress, String password) {
 		List<Member> members = new ArrayList<>();
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
 		members = jdbcTemplate.query(
 				"SELECT id,name,mail_address,password FROM members WHERE mail_address=:mailAddress and password=:password;",
 				param, MEMBER_ROW_MAPPER);
-		return members;
+		if(members.isEmpty()) {
+			System.out.println("null");
+			return null;
+		}
+		return members.get(0);
 	}
 
 	/**
@@ -58,15 +62,18 @@ public class MemberRepository {
 	 * 
 	 * @param mailAddress
 	 *            メールアドレス
-	 * @return メンバー情報.メンバーが存在しない場合は空のリスト.
+	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
-	public List<Member> findByMailAddress(String mailAddress) {
+	public Member findByMailAddress(String mailAddress) {
 		List<Member> members = new ArrayList<>();
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
 		members = jdbcTemplate.query(
 				"SELECT id,name,mail_address,password FROM members WHERE mail_address=:mailAddress;", param,
 				MEMBER_ROW_MAPPER);
-		return members;
+		if(members.isEmpty()) {
+			return null;
+		}
+		return members.get(0);
 	}
 
 	/**
