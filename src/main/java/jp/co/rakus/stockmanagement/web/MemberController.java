@@ -64,11 +64,13 @@ public class MemberController {
 		//パスワードと確認用パスワードが一致しないときのエラー処理
 		if(!form.getPassword().equals(form.getPasswordConfirmation())) {
 			result.rejectValue("password", null, "パスワードが確認用パスワードと一致しません");
-			return form();
 		}
 		//メールアドレスが登録済みの時のエラー処理
 		if(memberService.findOneByMailAddress(form.getMailAddress()) != null) {
 			result.rejectValue("mailAddress",null,"そのメールアドレスは既に登録されています");
+		}
+		//エラーがあったとき
+		if(result.hasErrors()) {
 			return form();
 		}
 		
