@@ -38,6 +38,16 @@ public class BookController {
 	}
 	
 	/**
+	 * 書籍情報登録フォームの初期化.
+	 * 
+	 * @return フォーム
+	 */
+	@ModelAttribute
+	public BookRegistrationForm setUpRegistrationForm() {
+		return new BookRegistrationForm();
+	}
+	
+	/**
 	 * 書籍リスト情報を取得し書籍リスト画面を表示します.
 	 * @param model モデル
 	 * @return 書籍リスト表示画面
@@ -77,6 +87,17 @@ public class BookController {
 		Book book = bookService.findOne(form.getId());
 		book.setStock(form.getStock());
 		bookService.update(book);
+		return list(model);
+	}
+	
+	@RequestMapping(value = "registrationView")
+	public String registrationView() {
+		return "book/bookForm";
+	}
+	
+	@RequestMapping(value = "registration")
+	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model) {
+		//ここに書籍登録処理、入力エラー処理
 		return list(model);
 	}
 
