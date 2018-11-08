@@ -20,7 +20,7 @@ import jp.co.rakus.stockmanagement.domain.Member;
  */
 @Repository
 public class MemberRepository {
-
+	public static final String TABLE_NAME = "members";
 	/**
 	 * ResultSetオブジェクトからMemberオブジェクトに変換するためのクラス実装&インスタンス化
 	 */
@@ -48,7 +48,7 @@ public class MemberRepository {
 		List<Member> members = new ArrayList<>();
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",password);
 		members = jdbcTemplate.query(
-				"SELECT id,name,mail_address,password FROM members WHERE mail_address=:mailAddress and password=:password;",
+				"SELECT id,name,mail_address,password FROM "+TABLE_NAME+" WHERE mail_address=:mailAddress and password=:password;",
 				param, MEMBER_ROW_MAPPER);
 		if(members.isEmpty()) {
 			System.out.println("null");
@@ -68,7 +68,7 @@ public class MemberRepository {
 		List<Member> members = new ArrayList<>();
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
 		members = jdbcTemplate.query(
-				"SELECT id,name,mail_address,password FROM members WHERE mail_address=:mailAddress;", param,
+				"SELECT id,name,mail_address,password FROM "+TABLE_NAME+" WHERE mail_address=:mailAddress;", param,
 				MEMBER_ROW_MAPPER);
 		if(members.isEmpty()) {
 			return null;
@@ -86,11 +86,11 @@ public class MemberRepository {
 	public Member save(Member member) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
 		if (member.getId() == null) {
-			jdbcTemplate.update("INSERT INTO members(name,mail_address,password) values(:name,:mailAddress,:password)",
+			jdbcTemplate.update("INSERT INTO "+TABLE_NAME+"(name,mail_address,password) values(:name,:mailAddress,:password)",
 					param);
 		} else {
 			jdbcTemplate.update(
-					"UPDATE members SET name=:name,mail_address=:mailAddress,password=:password WHERE id=:id", param);
+					"UPDATE "+TABLE_NAME+" SET name=:name,mail_address=:mailAddress,password=:password WHERE id=:id", param);
 		}
 		return member;
 	}
