@@ -2,9 +2,6 @@ package jp.co.rakus.stockmanagement.web;
 
 import java.util.List;
 
-import jp.co.rakus.stockmanagement.domain.Book;
-import jp.co.rakus.stockmanagement.service.BookService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +11,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import jp.co.rakus.stockmanagement.domain.Book;
+import jp.co.rakus.stockmanagement.service.BookService;
 
 /**
  * 書籍関連処理を行うコントローラー.
@@ -96,7 +98,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "registration")
-	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model) {
+	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model,@RequestParam MultipartFile image) {
 		//ここに書籍登録処理、入力エラー処理
 		return list(model);
 	}
