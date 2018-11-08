@@ -84,8 +84,8 @@ public class MemberService {
 //        }
     }
     
-    public boolean passwordMatcher(String password,String encodePassword) {
-    	if(passwordEncoder.matches(password,encodePassword)) {
+    public boolean passwordMatcher(String password,String hash) {
+    	if(passwordEncoder.matches(password,hash)) {
     		return true;
     	}else {
     		return false;
