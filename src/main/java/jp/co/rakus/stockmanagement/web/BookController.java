@@ -1,7 +1,11 @@
 package jp.co.rakus.stockmanagement.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.rakus.stockmanagement.domain.Book;
 import jp.co.rakus.stockmanagement.service.BookService;
@@ -98,8 +100,22 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "registration")
-	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model,@RequestParam MultipartFile image) {
+	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model) throws ParseException {
 		//ここに書籍登録処理、入力エラー処理
+		Book book = new Book();
+		BeanUtils.copyProperties(form, book);
+		book.setPrice(Integer.valueOf(form.getPrice()));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date saleDate = sdf.parse(form.getSaledate());
+		book.setSaledate(saleDate);
+		book.setImage(form.getImage().getOriginalFilename());
+		book.setStock(Integer.valueOf(form.getStock()));
+		
+//		System.out.println(book.getSaledate());
+		bookService.insert(book);
+		
+		//画像保存処理
+		
 		return list(model);
 	}
 

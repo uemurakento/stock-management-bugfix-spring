@@ -36,6 +36,10 @@ public class BookRepository {
 		Integer stock = rs.getInt("stock");
 		return new Book(id, name, author, publisher, price, isbncode, saledate, explanation, image, stock);
 	};
+	private static final RowMapper<Integer> BOOK_MAX_ID_ROW_MAPPER = (rs,i) -> {
+		Integer id = rs.getInt("max_id");
+		return id;
+	};
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -73,6 +77,13 @@ public class BookRepository {
 		jdbcTemplate.update(
 				"INSERT INTO "+TABLE_NAME+" (id,name,author,publisher,price,isbncode,saledate,explanation,image) VALUES (:id,:name,:author,:publisher,:price,:isbncode,:saledate,:explanation,:image);",
 				param);
+	}
+	
+	public Integer findMaxId() {
+		SqlParameterSource param = new MapSqlParameterSource();
+		String sql = "SELECT MAX(id) max_id FROM "+TABLE_NAME+";";
+		Integer max = jdbcTemplate.queryForObject(sql, param, BOOK_MAX_ID_ROW_MAPPER);
+		return max;
 	}
 	
 }

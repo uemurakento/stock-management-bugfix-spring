@@ -36,7 +36,12 @@ public class BookService {
 	}
 	
 	public void insert(Book book) {
+		book.setId(idMaxPlus1());
 		bookRepository.insert(book);
+	}
+	
+	public Integer idMaxPlus1() {
+		return bookRepository.findMaxId() + 1;
 	}
 	
 //	public void delete(Integer id){

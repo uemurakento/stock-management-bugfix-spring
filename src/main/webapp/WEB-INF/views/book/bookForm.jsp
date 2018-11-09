@@ -58,7 +58,7 @@
 			  	</th>
 			  	<td>
 			    	<form:errors path="saledate" cssStyle="color:red" element="div"/>
-			    	<form:input path="saledate" placeholder="saledate"/>
+			    	<input type="date" name="saledate" id="saledate">
 			  	</td>
 			  </tr>
 			  <tr>
@@ -76,7 +76,7 @@
 			  	</th>
 			  	<td>
 			    	<form:errors path="image" cssStyle="color:red" element="div"/>
-			    	<input name="image" type="file" />
+			    	<input name="image" type="file" id="image"/>
 			  	</td>
 			  </tr>
 			  <tr>
