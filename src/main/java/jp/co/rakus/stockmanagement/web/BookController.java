@@ -104,11 +104,17 @@ public class BookController {
 		if(form.getImage().isEmpty()) {
 			result.rejectValue("image", null, "画像を選択してください");
 		}
+		if (form.getImage().getContentType().indexOf("image") == -1) {
+			System.out.println(form.getImage().getContentType().indexOf("image"));
+			result.rejectValue("image", null, "画像形式のファイルを選択してください");
+		}
 		if(result.hasErrors()) {
 			return registrationView();
 		}
+		//画像保存処理
+		bookService.uploadImage(form.getImage());
 		
-		//ここに書籍登録処理
+		//書籍登録処理
 		Book book = new Book();
 		BeanUtils.copyProperties(form, book);
 		book.setPrice(Integer.valueOf(form.getPrice()));
@@ -118,11 +124,7 @@ public class BookController {
 		book.setImage(form.getImage().getOriginalFilename());
 		book.setStock(0);
 		
-//		System.out.println(book.getSaledate());
 		bookService.insert(book);
-		
-		//画像保存処理
-		bookService.uploadImage(form.getImage());
 		
 		return list(model);
 	}
