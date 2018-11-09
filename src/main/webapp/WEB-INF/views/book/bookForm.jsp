@@ -80,15 +80,6 @@
 			  	</td>
 			  </tr>
 			  <tr>
-			  	<th>
-			  		在庫数
-			  	</th>
-			  	<td>
-			    	<form:errors path="stock" cssStyle="color:red" element="div"/>
-			    	<form:input path="stock" placeholder="stock"/>
-			  	</td>
-			  </tr>
-			  <tr>
 			  	<td></td>
 			    <td>
 					<input class="btn" type="submit" value="登録">

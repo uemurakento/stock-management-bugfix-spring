@@ -101,7 +101,14 @@ public class BookController {
 	
 	@RequestMapping(value = "registration")
 	public String registration(@Validated BookRegistrationForm form,BindingResult result,Model model) throws ParseException {
-		//ここに書籍登録処理、入力エラー処理
+		if(form.getImage().isEmpty()) {
+			result.rejectValue("image", null, "画像を選択してください");
+		}
+		if(result.hasErrors()) {
+			return registrationView();
+		}
+		
+		//ここに書籍登録処理
 		Book book = new Book();
 		BeanUtils.copyProperties(form, book);
 		book.setPrice(Integer.valueOf(form.getPrice()));
@@ -109,12 +116,13 @@ public class BookController {
 		Date saleDate = sdf.parse(form.getSaledate());
 		book.setSaledate(saleDate);
 		book.setImage(form.getImage().getOriginalFilename());
-		book.setStock(Integer.valueOf(form.getStock()));
+		book.setStock(0);
 		
 //		System.out.println(book.getSaledate());
 		bookService.insert(book);
 		
 		//画像保存処理
+		bookService.uploadImage(form.getImage());
 		
 		return list(model);
 	}

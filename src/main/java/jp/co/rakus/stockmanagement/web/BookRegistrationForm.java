@@ -1,5 +1,6 @@
 package jp.co.rakus.stockmanagement.web;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,23 +11,28 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class BookRegistrationForm {
 	/** 書籍名 */
+	@NotBlank(message="書籍名を入力してください")
 	private String name;
 	/** 著者 */
+	@NotBlank(message="著者を入力してください")
 	private String author;
 	/** 出版社 */
+	@NotBlank(message="出版社を入力してください")
 	private String publisher;
 	/** 価格 */
+	@NotBlank(message="価格を入力してください")
 	private String price;
 	/** ISBNコード */
+	@NotBlank(message="ISBNコードを入力してください")
 	private String isbncode;
 	/** 発売日 */
+	@NotBlank(message="発売日を入力してください")
 	private String saledate;
 	/** 説明 */
+	@NotBlank(message="説明を入力してください")
 	private String explanation;
 	/** 画像 */
 	private MultipartFile image;
-	/** 在庫数 */
-	private String stock;
 
 	public String getName() {
 		return name;
@@ -75,11 +81,5 @@ public class BookRegistrationForm {
 	}
 	public void setImage(MultipartFile image) {
 		this.image = image;
-	}
-	public String getStock() {
-		return stock;
-	}
-	public void setStock(String stock) {
-		this.stock = stock;
 	}
 }
