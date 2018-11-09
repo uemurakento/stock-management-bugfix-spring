@@ -112,6 +112,7 @@ public class BookController {
 			return registrationView();
 		}
 		//画像保存処理
+		//TODO:同じ名前の画像ファイルが入力されたときに上書きされてしまうので直す必要がある
 		bookService.uploadImage(form.getImage());
 		
 		//書籍登録処理

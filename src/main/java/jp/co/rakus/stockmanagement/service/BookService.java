@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +24,9 @@ import jp.co.rakus.stockmanagement.repository.BookRepository;
 public class BookService {
 
 	@Autowired
-	BookRepository bookRepository;
+	private ServletContext context;
+	@Autowired
+	private BookRepository bookRepository;
 
 	public List<Book> findAll() {
 		return bookRepository.findAll();
@@ -57,18 +61,9 @@ public class BookService {
 	public void uploadImage(MultipartFile image) {
 		try {
 			// windowsではpathはwindowsの\\(円マークで指定しないといけない)
-			System.out.println(System.getProperty("user.dir"));
+			System.out.println(context.getRealPath("/img/"));
 			StringBuilder path = new StringBuilder();
-			path.append(System.getProperty("user.dir"));
-			path.append(File.separator);
-			path.append("src");
-			path.append(File.separator);
-			path.append("main");
-			path.append(File.separator);
-			path.append("webapp");
-			path.append(File.separator);
-			path.append("img");
-			path.append(File.separator);
+			path.append(context.getRealPath("/img/"));
 			path.append(image.getOriginalFilename());
 			
 			File uploadFile = new File(path.toString());
